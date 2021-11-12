@@ -3,7 +3,7 @@
 
 # 1> Reference: \
                   https://github.com/yanmin-wu/EAO-SLAM \
-                  https://github.com/Be997398715/EAO-SLAM-Improve \
+                  https://github.com/Be997398715/EAO-SLAM-Improve 
               
 # 2> Done:  \
             1. Opencv4 Support \
@@ -14,11 +14,11 @@
             6. Other TUM Sequences support \
             7. Yolact segment for better object's pose initial(in fact it's not good because unstable segmentation) \
             8. Optimization for Point, Object and Camera learn from CubeSLAM \
-            9. Add Yolact results for semantic pointcloud map \
+            9. Add Yolact results for semantic pointcloud map 
 
 # 3> To Do: \
             None
-            \
+            
           
 # 4> Results: \
             Only compare with data association here: \
@@ -32,8 +32,8 @@
             ![Full-With-Track](https://github.com/Be997398715/EAO-SLAM-Improve/blob/v1.0/EAO-SLAM-master-improve/figures/full-with-track.png) Full-With-Track \
             ![Full-with-Track-Optimization](https://github.com/Be997398715/EAO-SLAM-Final/blob/main/figures/full-with-optimize.jpg) Full-with-Track-Optimization \
             4. Segment Result
-            ![Yolact-Segment](https://github.com/Be997398715/EAO-SLAM-Final/blob/main/figures/segmask.jpg) Yolact-Segment \
-            \
+            ![Yolact-Segment](https://github.com/Be997398715/EAO-SLAM-Final/blob/main/figures/segmask.jpg) Yolact-Segment 
+            
 
 
 # 5> Usage: \
