@@ -1,98 +1,45 @@
-# EAO-SLAM
+# EAO-SLAM-Improve-Final-Poject
+# This is my final improve for EAO-SLAM, full project can be found at https://pan.baidu.com/s/1Zgat7FRjKEi7cbN3QDtqbA, password：z3ku .
 
-**Related Paper:**  
+# 1> Reference: \
+                  https://github.com/yanmin-wu/EAO-SLAM \
+                  https://github.com/Be997398715/EAO-SLAM-Improve \
+              
+# 2> Done:  \
+            1. Opencv4 Support \
+            2. YOLO Model support for online \
+            3. Fix some bugs \
+            4. Add 2d-object-tracker for data association[for Mono mode] \
+            5. Add RGB-D mode for pointcloud viewer and octomap \
+            6. Other TUM Sequences support \
+            7. Yolact segment for better object's pose initial(in fact it's not good because unstable segmentation) \
+            8. Optimization for Point, Object and Camera learn from CubeSLAM \
+            9. Add Yolact results for semantic pointcloud map \
 
-+ Wu Y, Zhang Y, Zhu D, et al. **EAO-SLAM: Monocular Semi-Dense Object SLAM Based on Ensemble Data Association**[C]//2020 IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS). IEEE, 2020: 4966-4973. [[**PDF**](https://arxiv.org/abs/2004.12730)] [[**YouTube**](https://youtu.be/pvwdQoV1KBI)] [[**bilibili**](https://www.bilibili.com/video/av94805216)]  [[**Project page**](https://yanmin-wu.github.io/project/eaoslam/)].
-+ Extended Work
-    + Wu Y, Zhang Y, Zhu D, et al. **Object-Driven Active Mapping for More Accurate Object Pose Estimation and Robotic Grasping**[J]. arXiv preprint arXiv:2012.01788, 2020. [[**PDF**](https://arxiv.org/abs/2012.01788)] [[**Project page**](https://yanmin-wu.github.io/project/active-mapping/)].
-    + Robotic Grasping demo: [YouTube](https://youtu.be/cNtvqiArVfI) | [bilibili](https://www.bilibili.com/video/BV1ZA411p7KK)
-    + Augmented Reality demo: [YouTube](https://youtu.be/E8jfkO_Q7Iw) | [bilibili](https://www.bilibili.com/video/BV1V5411p7gA)
-+ If you use the code in your academic work, please cite the above paper. 
+# 3> To Do: \
+            None
+            \
+          
+# 4> Results: \
+            Only compare with data association here: \
+            1. EAO results with track 
+            ![EAO-Only](https://github.com/Be997398715/EAO-SLAM-Improve/blob/v1.0/EAO-SLAM-master-improve/figures/EAO-only.png) EAO-Only 
+            ![EAO-With-Track](https://github.com/Be997398715/EAO-SLAM-Improve/blob/v1.0/EAO-SLAM-master-improve/figures/eao-with-track.png) EAO-With-Track \
+            2. IOU results with track 
+            ![Iou-With-Track](https://github.com/Be997398715/EAO-SLAM-Improve/blob/v1.0/EAO-SLAM-master-improve/figures/iou-with-track.png) Iou-With-Track  \
+            3. FULL results with optimization 
+            ![Full-Only](https://github.com/Be997398715/EAO-SLAM-Improve/blob/v1.0/EAO-SLAM-master-improve/figures/full.png) Full-Only
+            ![Full-With-Track](https://github.com/Be997398715/EAO-SLAM-Improve/blob/v1.0/EAO-SLAM-master-improve/figures/full-with-track.png) Full-With-Track \
+            ![Full-with-Track-Optimization](https://github.com/Be997398715/EAO-SLAM-Final/blob/main/figures/full-with-optimize.jpg) Full-with-Track-Optimization \
+            4. Segment Result
+            ![Yolact-Segment](https://github.com/Be997398715/EAO-SLAM-Final/blob/main/figures/segmask.jpg) Yolact-Segment \
+            \
 
-## 1. Prerequisites
 
-+ Prerequisites are the same as [**semidense-lines**](https://github.com/shidahe/semidense-lines#1-prerequisites). If compiling problems met, please refer to semidense-lines and ORB_SLAM2.
-+ The code is tested in Ubuntu 16.04, opencv 3.2.0/3.3.1, Eigen 3.2.1.
+# 5> Usage: \
+            1. for mono: build/mono_tum Full data/rgbd_dataset_freiburg3_long_office_household/ Vocabulary/ORBvoc.bin Examples/Monocular/TUM3.yaml online  \
+            2. for rgbd: build/rgbd_tum Vocabulary/ORBvoc.bin Examples/RGB-D/TUM3.yaml data/rgbd_dataset_freiburg3_long_office_household/ Examples/RGB-D/associations.txt Full online \
+            *notes:you need download yolov3.weights and data and yolact_base_54_800000.onnx before running program.
 
-## 2. Building
-
-```
-chmod +x build.sh       
-./build.sh
-```
-
-## 3. Examples
-
-+ 0. We provide a demo that uses the **`TUM rgbd_dataset_freiburg3_long_office_household`** sequence;  please download the dataset beforehand. The offline object bounding boxes are in `data/yolo_txts` folder.
-+ 1. **Object size and orientation estimation**.
-    + use **iForest and line alignment**:
-        ```
-        ./Examples/Monocular/mono_tum LineAndiForest [path of tum fr3_long_office]
-        ```
-    + only use **iForest**:
-        ```
-        ./Examples/Monocular/mono_tum iForest [path of tum fr3_long_office]
-        ```
-    + **without** iForest and line alignment:
-        ```
-        ./Examples/Monocular/mono_tum None [path of tum fr3_long_office]
-        ```
-    <figure>
-    <p align="center" >
-    <img src='./figures/scale_and_orientation.png' width=1000 alt="Figure 1"/>
-    </p>
-    </figure>
-
-+ 2. **Data association**
-    + **without** data association:
-        ```
-        ./Examples/Monocular/mono_tum NA [path of tum fr3_long_office]
-        ```
-    + data association by **IoU** only:
-        ```
-        ./Examples/Monocular/mono_tum IoU [path of tum fr3_long_office]
-        ```
-    + data association by **Non-Parametric-test** only:
-        ```
-        ./Examples/Monocular/mono_tum NP [path of tum fr3_long_office]
-        ```
-    + data association by our **ensemble method**:
-        ```
-        ./Examples/Monocular/mono_tum EAO [path of tum fr3_long_office]
-        ```
-    <figure>
-    <p align="center" >
-    <img src='./figures/data_association.jpg' width=1000 alt="Figure 1"/>
-    </p>
-    </figure>
-
-+ 3. **The full demo on TUM fr3_long_office sequence:**
-    ```
-    ./Examples/Monocular/mono_tum Full [path of tum fr3_long_office]
-    ```
-    + If you want to see the semi-dense map, you may have to wait a while after the sequence ends.
-    + Since YOLO (which was not trained in this scenario) made a lot of false detections at the start of the sequence, so we adopted a stricter elimination mechanism, which resulted in the deletion of many objects at the start.
-
-## 4. Videos
-
-+ More experimental results can be found on our [project page](https://yanmin-wu.github.io/project/eaoslam/).   
-    + Video: [**YouTube**](https://youtu.be/pvwdQoV1KBI) | [**bilibili**](https://www.bilibili.com/video/av94805216)
-+ Extended work: [project page](https://yanmin-wu.github.io/project/active-mapping/)
-    + Robotic Grasping demo: [YouTube](https://youtu.be/cNtvqiArVfI) | [bilibili](https://www.bilibili.com/video/BV1ZA411p7KK)
-    + Augmented Reality demo: [YouTube](https://youtu.be/E8jfkO_Q7Iw) | [bilibili](https://www.bilibili.com/video/BV1V5411p7gA)
-
-## 5. Note
-
-+ This is an incomplete version of our paper. If you want to use it in your work or with other datasets, you should prepare the offline semantic detection/segmentation results or switch to online mode. Besides, you may need to adjust the data association strategy and abnormal object elimination mechanism (We found the misdetection from YOLO has a great impact on the results).
-
-## 6. Acknowledgement
-
-Thanks for the great work: [**ORB-SLAM2**](https://github.com/raulmur/ORB_SLAM2), [**Cube SLAM**](https://github.com/shichaoy/cube_slam), and [**Semidense-Lines**](https://github.com/shidahe/semidense-lines).
-+ Mur-Artal R, Tardós J D. **Orb-slam2: An open-source slam system for monocular, stereo, and rgb-d cameras**[J]. IEEE Transactions on Robotics, 2017, 33(5): 1255-1262. [PDF](https://arxiv.org/abs/1610.06475), [Code](https://github.com/raulmur/ORB_SLAM2)
-+ Yang S, Scherer S. **Cubeslam: Monocular 3-d object slam**[J]. IEEE Transactions on Robotics, 2019, 35(4): 925-938. [PDF](https://arxiv.org/abs/1806.00557), [Code](https://github.com/shichaoy/cube_slam)
-+ He S, Qin X, Zhang Z, et al. **Incremental 3d line segment extraction from semi-dense slam**[C]//2018 24th International Conference on Pattern Recognition (ICPR). IEEE, 2018: 1658-1663. [PDF](https://arxiv.org/abs/1708.03275), [Code](https://github.com/shidahe/semidense-lines)
-
-## 7. Contact
-
-+ [Yanmin Wu](https://yanmin-wu.github.io/), Email: wuyanminmax@gmail.com
-+ Corresponding author: [Yunzhou Zhang *](http://faculty.neu.edu.cn/ise/zhangyunzhou), Email: zhangyunzhou@mail.neu.edu.cn
+          
+          
