@@ -38,7 +38,7 @@
 
 # 5> Usage: 
             1. for mono: build/mono_tum Full data/rgbd_dataset_freiburg3_long_office_household/ Vocabulary/ORBvoc.bin Examples/Monocular/TUM3.yaml online  
-            2. for rgbd: build/rgbd_tum Vocabulary/ORBvoc.bin Examples/RGB-D/TUM3.yaml data/rgbd_dataset_freiburg3_long_office_household/ Examples/RGB-D/associations.txt Full online \
+            2. for rgbd: build/rgbd_tum Vocabulary/ORBvoc.bin Examples/RGB-D/TUM3.yaml data/rgbd_dataset_freiburg3_long_office_household/ Examples/RGB-D/associations.txt Full online 
             *notes:you need download yolov3.weights and data and yolact_base_54_800000.onnx before running program.
 
           
